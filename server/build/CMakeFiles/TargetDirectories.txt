@@ -1,0 +1,3 @@
+/home/malek_/learn/projects/tcp-pc-controller/server/build/CMakeFiles/Server.dir
+/home/malek_/learn/projects/tcp-pc-controller/server/build/CMakeFiles/edit_cache.dir
+/home/malek_/learn/projects/tcp-pc-controller/server/build/CMakeFiles/rebuild_cache.dir

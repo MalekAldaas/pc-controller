@@ -1,0 +1,5 @@
+#ifndef LAUNCH_FIREFOX_COMMAND_H
+#define LAUNCH_FIREFOX_COMMAND_H
+
+
+#endif 

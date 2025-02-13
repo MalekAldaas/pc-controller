@@ -13,6 +13,7 @@ class ServerConfig {
         std::shared_ptr<Command> getCommand(const std::string& commandName) const;
         void setPort(const int& port);
         int getPort() const; 
+        void initilizeCommands();
 
     private:
         ServerConfig() = default; 
@@ -26,3 +27,4 @@ class ServerConfig {
 
 
 #endif
+

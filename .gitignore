@@ -1,4 +1,5 @@
 # Ignore build directories
+server/build/
 build/
 CMakeFiles/
 CMakeCache.txt

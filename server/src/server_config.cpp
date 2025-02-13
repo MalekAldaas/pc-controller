@@ -1,5 +1,6 @@
 #include <iostream>
 #include "server_config.h"
+#include "uptime_command.h"
 
 
 ServerConfig& ServerConfig::getInstance() {
@@ -16,6 +17,10 @@ std::shared_ptr<Command> ServerConfig::getCommand(const std::string& commandName
         return it->second; 
     }
     return nullptr; 
+}
+
+void ServerConfig::initilizeCommands() {
+    registerCommand("uptime", std::make_shared<UptimeCommand>());
 }
 
 void ServerConfig::setPort(const int& port) {

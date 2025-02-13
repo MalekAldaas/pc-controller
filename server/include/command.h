@@ -1,8 +1,13 @@
 #ifndef COMMAND_H
-#define COMMAND_h
+#define COMMAND_H
+
+#include <iostream>
+#include "command_status.h"
+
 
 class Command {
-    virtual void execute(const std::string& args) = 0; 
+public:
+    virtual CommandStatus execute(const std::string& args) = 0; 
     virtual ~Command() {}
 };
 

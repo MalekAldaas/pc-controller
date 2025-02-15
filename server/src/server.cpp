@@ -53,6 +53,7 @@ int Server::acceptClient() {
 
     if (clientSocket < 0) {
         std::cerr << "Error accepting client connection.\n";
+        return -1;
     } else {
         std::cout << "Client connected.\n";
     }

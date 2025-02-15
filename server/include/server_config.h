@@ -11,8 +11,6 @@ class ServerConfig {
         static ServerConfig& getInstance(); 
         void registerCommand(const std::string& commandName, std::shared_ptr<Command> command); 
         std::shared_ptr<Command> getCommand(const std::string& commandName) const;
-        void setPort(const int& port);
-        int getPort() const; 
         void initilizeCommands();
 
     private:
@@ -21,7 +19,6 @@ class ServerConfig {
         ServerConfig(const ServerConfig&) = delete;
         ServerConfig& operator=(const ServerConfig&) = delete;
 
-        int port = 1234; 
         std::unordered_map<std::string, std::shared_ptr<Command>> commands; 
 };
 

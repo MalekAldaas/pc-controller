@@ -12,7 +12,7 @@ public:
     UptimeCommand() = default;
     virtual ~UptimeCommand() = default;
 
-    CommandStatus execute(const std::string& args) override ;
+    CommandStatus execute(const std::string& args = "") override ;
 
 };
 #endif 

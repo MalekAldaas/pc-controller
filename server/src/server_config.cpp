@@ -19,18 +19,7 @@ std::shared_ptr<Command> ServerConfig::getCommand(const std::string& commandName
     return nullptr; 
 }
 
+// ##add new commands here##
 void ServerConfig::initilizeCommands() {
     registerCommand("uptime", std::make_shared<UptimeCommand>());
 }
-
-void ServerConfig::setPort(const int& port) {
-    this->port = port;
-}
-
-int ServerConfig::getPort() const {
-    return port; 
-}
-
-
-
-

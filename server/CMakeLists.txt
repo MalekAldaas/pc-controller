@@ -13,7 +13,7 @@ file(GLOB SERVER_HEADERS ${INCLUDE_DIR}/*.h)
 file(GLOB COMMAND_HEADERS ${COMMANDS_INCLUDE_DIR}/*.h)
 
 
-add_executable(Server server.cpp ${SERVER_SOURCES} ${COMMAND_SOURCES})
+add_executable(Server ${SERVER_SOURCES} ${COMMAND_SOURCES})
 
 target_include_directories(Server PRIVATE ${INCLUDE_DIR} ${COMMANDS_INCLUDE_DIR})
 

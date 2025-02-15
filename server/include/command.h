@@ -7,7 +7,7 @@
 
 class Command {
 public:
-    virtual CommandStatus execute(const std::string& args) = 0; 
+    virtual CommandStatus execute(const std::string& args = "") = 0; 
     virtual ~Command() {}
 };
 

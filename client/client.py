@@ -29,8 +29,10 @@ def main():
     # Define available commands mapped to indices
     commands = {
         "1": "uptime",
-        "2": "command2",  # Replace with your actual command
-        "3": "command3",  # Replace with your actual command
+        "2": "battery_percentage",  # Replace with your actual command
+        "3": "launch_telegram",  # Replace with your actual command
+        "4": "launch_firefox",
+        "5": "launch_thunderbird",
     }
 
     while True:
@@ -62,5 +64,4 @@ def main():
     client_socket.close()
     print("Connection closed.")
 
-if __name__ == 'main':
-    main()
+main()

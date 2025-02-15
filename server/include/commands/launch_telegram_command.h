@@ -1,5 +1,0 @@
-#ifndef LAUNCH_TELEGRAM_COMMAND_H
-#define LAUNCH_TELEGRAM_COMMAND_H
-
-
-#endif 

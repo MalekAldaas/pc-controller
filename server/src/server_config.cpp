@@ -1,6 +1,8 @@
 #include <iostream>
 #include "server_config.h"
 #include "uptime_command.h"
+#include "battery_percentage_command.h"
+#include "launch_application_command.h"
 
 
 ServerConfig& ServerConfig::getInstance() {
@@ -8,7 +10,7 @@ ServerConfig& ServerConfig::getInstance() {
     return instance;
 }
 void ServerConfig::registerCommand(const std::string& commandName, std::shared_ptr<Command> command) {
-    this->commands[commandName] = std::move(command);
+    commands[commandName] = std::move(command);
 }   
 
 std::shared_ptr<Command> ServerConfig::getCommand(const std::string& commandName) const {
@@ -22,4 +24,8 @@ std::shared_ptr<Command> ServerConfig::getCommand(const std::string& commandName
 // ##add new commands here##
 void ServerConfig::initilizeCommands() {
     registerCommand("uptime", std::make_shared<UptimeCommand>());
+    registerCommand("battery_percentage", std::make_shared<BatteryCommand>()); 
+    registerCommand("launch_telegram", std::make_shared<LaunchApplicationCommand>("telegram-desktop"));
+    registerCommand("launch_firefox", std::make_shared<LaunchApplicationCommand>("firefox"));
+    registerCommand("launch_thunderbird", std::make_shared<LaunchApplicationCommand>("thunderbird"));
 }

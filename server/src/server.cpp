@@ -62,7 +62,7 @@ int Server::acceptClient() {
 }
 
 bool Server::receiveCommand(int clientSocket, std::string& command) {
-    char buffer[BUFFER_SIZE]{};
+    char buffer[BUFFER_SIZE];
     int bytesReceived = recv(clientSocket, buffer, BUFFER_SIZE - 1, 0);
 
     if (bytesReceived <= 0) {

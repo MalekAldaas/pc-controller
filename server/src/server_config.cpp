@@ -3,6 +3,7 @@
 #include "uptime_command.h"
 #include "battery_percentage_command.h"
 #include "launch_application_command.h"
+#include "volume_control_command.h"
 
 
 ServerConfig& ServerConfig::getInstance() {
@@ -20,12 +21,18 @@ std::shared_ptr<Command> ServerConfig::getCommand(const std::string& commandName
     }
     return nullptr; 
 }
-
 // ##add new commands here##
+
 void ServerConfig::initilizeCommands() {
     registerCommand("uptime", std::make_shared<UptimeCommand>());
     registerCommand("battery_percentage", std::make_shared<BatteryCommand>()); 
     registerCommand("launch_telegram", std::make_shared<LaunchApplicationCommand>("telegram-desktop"));
     registerCommand("launch_firefox", std::make_shared<LaunchApplicationCommand>("firefox"));
     registerCommand("launch_thunderbird", std::make_shared<LaunchApplicationCommand>("thunderbird"));
+    registerCommand("launch_protonvpn", std::make_shared<LaunchApplicationCommand>("protonvpn-app")); 
+    registerCommand("increase_volume", std::make_shared<VolumeControlCommand>(VolumeControlCommand::Action::INCREASE)); 
+    registerCommand("decrease_volume", std::make_shared<VolumeControlCommand>(VolumeControlCommand::Action::DECREASE)); 
+    registerCommand("mute_volume", std::make_shared<VolumeControlCommand>(VolumeControlCommand::Action::MUTE)); 
+    registerCommand("unmute_volume", std::make_shared<VolumeControlCommand>(VolumeControlCommand::Action::UNMUTE)); 
+    registerCommand("get_volume", std::make_shared<VolumeControlCommand>(VolumeControlCommand::Action::GET)); 
 }

@@ -29,10 +29,14 @@ def main():
     # Define available commands mapped to indices
     commands = {
         "1": "uptime",
-        "2": "battery_percentage",  # Replace with your actual command
-        "3": "launch_telegram",  # Replace with your actual command
+        "2": "battery_percentage",  
+        "3": "launch_telegram",  
         "4": "launch_firefox",
         "5": "launch_thunderbird",
+        "6": "increase_volume",
+        "7": "decrease_volume",
+        "8": "mute_volume",
+        "9": "unmute_volume"
     }
 
     while True:

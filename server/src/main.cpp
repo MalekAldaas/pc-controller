@@ -38,24 +38,26 @@ int main(int argc, char* argv[]) {
     }
 
     while (true) {
+        std::cout << "Waiting for a client\n"; 
         int clientSocket = server.acceptClient(); 
-        if (clientSocket < 0) {
-            std::cerr << "Error accepting client" << std::endl ;
-            continue ;
-        }
-        std::string commandName; 
+        std::cout << "Client is connecting\n";
+        while (true) {
+            std::string commandName; 
+            std::cout << "Waiting for a command: \n";
+            if (!server.receiveCommand(clientSocket, commandName)) {
+                break; 
+            }
 
-        if (!server.receiveCommand(clientSocket, commandName)) {
-            continue; 
-        }
-        
-        std::shared_ptr<Command> command = serverConfig.getCommand(commandName); 
-        if (command == nullptr) {
-            server.sendResponse(clientSocket, "Unknown Command: " + commandName); 
-        }
-        else {
-            CommandStatus status = command->execute(); 
-            server.sendResponse(clientSocket, status.getStatus()) ;
+            std::cout << "Command recieved: " << commandName << "\n"; 
+            
+            std::shared_ptr<Command> command = serverConfig.getCommand(commandName); 
+            if (command == nullptr) {
+                server.sendResponse(clientSocket, "Unknown Command: " + commandName); 
+            }
+            else {
+                CommandStatus status = command->execute(); 
+                server.sendResponse(clientSocket, status.getStatus()) ;
+            }
         }
     }
     return 0;

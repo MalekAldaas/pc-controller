@@ -4,6 +4,8 @@
 #include <netinet/in.h>
 #include <cstring>
 #include <unistd.h>
+#include <memory>
+#include "server_config.h"
 
 constexpr int BUFFER_SIZE = 1024; 
 constexpr int BACKLOG = 5;
@@ -14,10 +16,30 @@ Server::~Server() {
     if (serverSocket != -1) {
         close(serverSocket);
     }
+    for (auto& t : clientThreads) {
+        if (t.joinable()) {
+            t.join();
+        }
+    }
 }
 
 bool Server::start() {
-    return setupSocket();
+    if (!setupSocket()) return false;
+    
+    while (true) {
+        std::cout << "Waiting for a client...\n";
+        sockaddr_in clientAddr;
+        socklen_t clientLen = sizeof(clientAddr);
+        int clientSocket = accept(serverSocket, (sockaddr*)&clientAddr, &clientLen);
+
+        if (clientSocket < 0) {
+            std::cerr << "Error accepting client connection.\n";
+            continue;
+        }
+        
+        std::cout << "Client connected.\n";
+        clientThreads.emplace_back(&Server::handleClient, this, clientSocket);
+    }
 }
 
 bool Server::setupSocket() {
@@ -46,44 +68,27 @@ bool Server::setupSocket() {
     return true;
 }
 
-int Server::acceptClient() {
-    sockaddr_in clientAddr;
-    socklen_t clientLen = sizeof(clientAddr);
-    int clientSocket = accept(serverSocket, (sockaddr*)&clientAddr, &clientLen);
-
-    if (clientSocket < 0) {
-        std::cerr << "Error accepting client connection.\n";
-        return -1;
-    } else {
-        std::cout << "Client connected.\n";
-    }
-
-    return clientSocket;
-}
-
-bool Server::receiveCommand(int clientSocket, std::string& command) {
+void Server::handleClient(int clientSocket) {
     char buffer[BUFFER_SIZE];
-    int bytesReceived = recv(clientSocket, buffer, BUFFER_SIZE - 1, 0);
+    ServerConfig& serverConfig = ServerConfig::getInstance();
 
-    if (bytesReceived <= 0) {
-        std::cerr << "Error receiving data or client disconnected.\n";
-        return false;
+    while (true) {
+        memset(buffer, 0, BUFFER_SIZE);
+        int bytesReceived = recv(clientSocket, buffer, BUFFER_SIZE - 1, 0);
+
+        if (bytesReceived <= 0) {
+            std::cerr << "Client disconnected or error receiving data.\n";
+            break;
+        }
+
+        std::string commandName(buffer);
+        std::cout << "Command received: " << commandName << "\n";
+
+        std::shared_ptr<Command> command = serverConfig.getCommand(commandName);
+        std::string response = command ? command->execute().getStatus() : "Unknown Command: " + commandName;
+        send(clientSocket, response.c_str(), response.size(), 0);
     }
 
-    buffer[bytesReceived] = '\0';
-    command = buffer;
-    return true;
+    close(clientSocket);
+    std::cout << "Client connection closed.\n";
 }
-
-bool Server::sendResponse(int clientSocket, const std::string& message) {
-    int bytesSent = send(clientSocket, message.c_str(), message.size(), 0);
-    return bytesSent >= 0;
-}
-
-void Server::closeClient(int clientSocket) {
-    if (clientSocket >= 0) {
-        close(clientSocket);
-        std::cout << "Client connection closed." << std::endl;
-    }
-}
-

@@ -30,6 +30,7 @@ void ServerConfig::initilizeCommands() {
     registerCommand("launch_firefox", std::make_shared<LaunchApplicationCommand>("firefox"));
     registerCommand("launch_thunderbird", std::make_shared<LaunchApplicationCommand>("thunderbird"));
     registerCommand("launch_protonvpn", std::make_shared<LaunchApplicationCommand>("protonvpn-app")); 
+    registerCommand("launch_calculator", std::make_shared<LaunchApplicationCommand>("gnome-calculator")); 
     registerCommand("increase_volume", std::make_shared<VolumeControlCommand>(VolumeControlCommand::Action::INCREASE)); 
     registerCommand("decrease_volume", std::make_shared<VolumeControlCommand>(VolumeControlCommand::Action::DECREASE)); 
     registerCommand("mute_volume", std::make_shared<VolumeControlCommand>(VolumeControlCommand::Action::MUTE)); 

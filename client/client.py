@@ -33,10 +33,11 @@ def main():
         "3": "launch_telegram",  
         "4": "launch_firefox",
         "5": "launch_thunderbird",
-        "6": "increase_volume",
-        "7": "decrease_volume",
-        "8": "mute_volume",
-        "9": "unmute_volume"
+        "6": "launch_calculator",
+        "7": "increase_volume",
+        "8": "decrease_volume",
+        "9": "mute_volume",
+        "10": "unmute_volume"
     }
 
     while True:

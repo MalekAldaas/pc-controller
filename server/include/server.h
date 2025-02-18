@@ -2,23 +2,23 @@
 #define SERVER_H
 
 #include <string>
+#include <thread>
+#include <vector>
+#include <mutex>
 
 class Server {
 public:
     Server(int port);
     ~Server();
 
-    bool start();                 
-    int acceptClient();           
-    bool receiveCommand(int clientSocket, std::string& command);  
-    bool sendResponse(int clientSocket, const std::string& message); 
-    void closeClient(int clientSocket);  
+    bool start();                  
+    void handleClient(int clientSocket);
 
 private:
-    int port;                     
+    int port;                      
     int serverSocket;              
-    bool setupSocket();             
+    std::vector<std::thread> clientThreads;
+    bool setupSocket();            
 };
 
 #endif
-

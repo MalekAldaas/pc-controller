@@ -53,6 +53,19 @@ A cross-platform PC control application where a Python client sends TCP commands
 -    python3 client.py <SERVER_IP\> <SERVER_PORT\>
 -    Use the client to send commands to the server by selecting a command from the available options.
 
+## Screen Shots
+
+### 1. Battery Percentage Command
+![Battery Percentage](screenshots/battery_percentage.png)
+
+### 2. Server Running
+![Server Screenshot](screenshots/server.png)
+
+### 3. Uptime Command
+![Uptime Command](screenshots/uptime-command.png)
+
+
+
 ## Code Design
 
 - Command Design Pattern: The server uses a command design pattern, where each command is represented by a class. The commands are dynamically executed based on the client's request, making the server easily extensible with new commands.

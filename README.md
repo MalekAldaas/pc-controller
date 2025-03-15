@@ -40,7 +40,7 @@ A cross-platform PC control application where a Python client sends TCP commands
 2. cd <project_directory\>
 3. mkdir build/
 4. cd build/
-5. cmake -S ../ -B .
+5. cmake -S ../server -B .
 6. make
 7. ./Server
 
